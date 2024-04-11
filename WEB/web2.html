@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MakeupByMe</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background-color: #f8f8f8;
+    padding: 20px;
+    text-align: center;
+  }
+  nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  section {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .product {
+    display: flex;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .product img {
+    max-width: 170px;
+    height: auto;
+    margin-right: 10px;
+  }
+  .product-content {
+    flex-grow: 1;
+  }
+  .product h2 {
+    margin-top: 0;
+  }
+  .product p {
+    margin-bottom: 5px;
+  }
+  .checkout-btn {
+    background-color: #252323;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 20px auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .checkout-btn:hover {
+    background-color: #000000;
+  }
+  #cart {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgb(0, 0, 0);
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>MakeupByMe</h1>
+</header>
+<nav>
+  <a href="#products">Produkty</a>
+  <a href="#cart">Košík</a>
+</nav>
+<section id="products">
+  <div class="product">
+    <img src="rtenka3.avif" alt="Rtěnka">
+    <div class="product-content">
+        <br>
+      <h2>MACximal Silky Matte Lipstick</h2>
+      <p>Barva: Růžová<br><strong>Cena:</strong> 685 Kč</p>
+      <br>
+      <button onclick="addToCart('MACximal Silky Matte Lipstick', 685)">Přidat do košíku</button>
+    </div>
+  </div>
+  <div class="product">
+    <img src="rtenka2.avif" alt="Rťenka">
+    <div class="product-content">
+        <br>
+      <h2>Pure Color Creme Lipstick</h2>
+      <p>Pro suchou pleť<br><strong>Cena:</strong> 550 Kč</p>
+      <br>
+      <button onclick="addToCart('Pure Color Creme Lipstick', 550)">Přidat do košíku</button>
+    </div>
+  </div>
+</section>
+<section id="cart" style="display: none;">
+  <h2>Košík</h2>
+  <div id="cart-items"></div>
+  <button class="checkout-btn" onclick="checkout()">Dokončit nákup</button>
+</section>
+<script>
+  let cart = [];
+
+  function addToCart(product, price) {
+    cart.push({ product: product, price: price });
+    updateCart();
+  }
+
+  function updateCart() {
+    let cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+      cartItems.innerHTML += `<div>${item.product} - ${item.price} Kč</div><br/>`;
+      total += item.price;
+    });
+
+    cartItems.innerHTML += `<div><strong>Celkem: ${total} Kč</strong></div>`;
+    document.getElementById('cart').style.display = 'block';
+  }
+
+  function checkout() {
+    alert('Děkujeme za nákup! Celková cena: ' + calculateTotal() + ' Kč');
+    cart = [];
+    updateCart();
+  }
+
+  function calculateTotal() {
+    let total = 0;
+    cart.forEach(item => {
+      total += item.price;
+    });
+    return total;
+  }
+</script>
+</body>
+</html>
